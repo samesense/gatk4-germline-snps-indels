@@ -1,5 +1,8 @@
 {
-  "Normalize.vcf_files": [],
+  "Normalize.vcf_file": "",
+  "Normalize.vcf_idx": "",
+  "Normalize.reference": "",
+  "Normalize.reference_idx": "",
   "Normalize.output_vcf_name": "",
   "JointGenotyping.large_disk": 1000
 }
