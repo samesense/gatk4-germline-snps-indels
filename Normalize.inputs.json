@@ -1,0 +1,5 @@
+{
+  "Normalize.vcf_files": [],
+  "Normalize.output_vcf_name": "",
+  "JointGenotyping.large_disk": 1000
+}
