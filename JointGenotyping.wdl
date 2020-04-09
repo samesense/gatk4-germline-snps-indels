@@ -166,45 +166,6 @@ workflow JointGenotyping {
         batch_size = 50
     }
 
-    if (use_gnarly_genotyper) {
-
-      call Tasks.SplitIntervalList as GnarlyIntervalScatterDude {
-        input:
-          interval_list = unpadded_intervals[idx],
-          scatter_count = gnarly_scatter_count,
-          ref_fasta = ref_fasta,
-          ref_fasta_index = ref_fasta_index,
-          ref_dict = ref_dict,
-          disk_size = small_disk,
-          sample_names_unique_done = CheckSamplesUnique.samples_unique
-      }
-
-      Array[File] gnarly_intervals = GnarlyIntervalScatterDude.output_intervals
-
-      scatter (gnarly_idx in range(length(gnarly_intervals))) {
-        call Tasks.GnarlyGenotyper {
-          input:
-            workspace_tar = ImportGVCFs.output_genomicsdb,
-            interval = gnarly_intervals[gnarly_idx],
-            output_vcf_filename = callset_name + "." + idx + "." + gnarly_idx + ".vcf.gz",
-            ref_fasta = ref_fasta,
-            ref_fasta_index = ref_fasta_index,
-            ref_dict = ref_dict,
-            dbsnp_vcf = dbsnp_vcf,
-        }
-      }
-
-      Array[File] gnarly_gvcfs = GnarlyGenotyper.output_vcf
-
-      call Tasks.GatherVcfs as TotallyRadicalGatherVcfs {
-        input:
-          input_vcfs = gnarly_gvcfs,
-          output_vcf_name = callset_name + "." + idx + ".gnarly.vcf.gz",
-          disk_size = large_disk
-      }
-    }
-
-    if (!use_gnarly_genotyper) {
       call Tasks.GenotypeGVCFs {
         input:
           workspace_tar = ImportGVCFs.output_genomicsdb,
@@ -216,10 +177,9 @@ workflow JointGenotyping {
           dbsnp_vcf = dbsnp_vcf,
           disk_size = medium_disk
       }
-    }
 
-    File genotyped_vcf = select_first([TotallyRadicalGatherVcfs.output_vcf, GenotypeGVCFs.output_vcf])
-    File genotyped_vcf_index = select_first([TotallyRadicalGatherVcfs.output_vcf_index, GenotypeGVCFs.output_vcf_index])
+    #File genotyped_vcf = select_first([TotallyRadicalGatherVcfs.output_vcf, GenotypeGVCFs.output_vcf])
+    #File genotyped_vcf_index = select_first([TotallyRadicalGatherVcfs.output_vcf_index, GenotypeGVCFs.output_vcf_index])
 
   }
 
