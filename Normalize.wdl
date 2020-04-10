@@ -32,6 +32,5 @@ workflow Normalize {
 
   output {
     File output_vcf = norm.output_vcf
-    File output_idx = norm.output_vcf_idx
   }
 }
