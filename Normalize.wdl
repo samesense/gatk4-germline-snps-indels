@@ -9,7 +9,6 @@ workflow Normalize {
     File vcf_idx
     File reference
     File reference_idx
-    String output_vcf_name
     Int large_disk
   }
 
@@ -27,7 +26,6 @@ workflow Normalize {
       reference = reference,
       reference_idx = reference_idx,
       disk_size = large_disk,
-      out_prefix = output_vcf_name
   }
 
   output {
