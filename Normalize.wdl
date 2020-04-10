@@ -20,7 +20,7 @@ workflow Normalize {
   #     disk_size = large_disk
   # }
 
-  call Perry.DecomposeNormalizeVCF as norm {
+  call Tasks.DecomposeNormalizeVCF as norm {
     input:
       input_file = vcf_file,
       input_idx_file = vcf_idx,
