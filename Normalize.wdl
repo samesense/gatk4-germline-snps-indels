@@ -31,6 +31,6 @@ workflow Normalize {
   }
 
   output {
-    File output_vcf = norm.output_vcf
+    File output_vcf = norm.vcf_file
   }
 }
