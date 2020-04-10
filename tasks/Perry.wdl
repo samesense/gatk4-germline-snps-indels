@@ -64,9 +64,9 @@ task DecomposeNormalizeVCF {
   command {
     set -Eeuxo pipefail;
 
-    ~{default="vt" vt} decompose \
+     vt decompose \
       -s ~{input_file} | \
-    ~{default="vt" vt} normalize - \
+     vt normalize - \
       -r ~{reference} \
       -o ~{output_filename};
   }
@@ -84,7 +84,6 @@ task DecomposeNormalizeVCF {
   }
 
   parameter_meta {
-    vt: "Vt executable."
     input_file: "VCF file."
     input_idx_file: "VCF file index (.tbi)."
     reference: "Reference fasta sequence."
