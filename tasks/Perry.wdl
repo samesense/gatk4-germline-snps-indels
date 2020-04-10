@@ -64,9 +64,9 @@ task DecomposeNormalizeVCF {
   command {
     set -Eeuxo pipefail;
 
-     vt decompose \
+     vt/vt decompose \
       -s ~{input_file} | \
-     vt normalize - \
+     vt/vt normalize - \
       -r ~{reference} \
       -o ~{output_filename};
   }
