@@ -98,3 +98,39 @@ task DecomposeNormalizeVCF {
     version: "0.1.0"
   }
 }
+
+task FinalSelectVar {
+  input {
+    File input_file
+    Float memory = 4
+    Int cpu = 1
+    Int disk_size
+
+    String output_vcf = basename(input_file) + ".vars.vcf"
+    String output_cas = basename(input_file) + ".vars.vcf.cas"
+  }
+  command {
+    set -Eeuxo pipefail;
+    gatk --java-options -Xmx5g -Xms5g \
+    SelectVariants -V ~{input_vcf} \
+    --exclude-non-variants \
+    --output ~{output_vcf}; \
+    /bin/cp-lfs -cas.addr https://cas.arcus.chop.edu -cas.upload -cas.tls.verify=false ~{output_vcf} ~{output_cas}
+
+  }
+
+  output {
+    File vcf_file = "~{output_vcf}"
+    File cas_file = "~{output_cas}"
+  }
+
+  runtime {
+    noAddress: true
+    memory: memory + " GB"
+    cpu: cpu
+    disks: "local-disk " + disk_size + " HDD"
+    docker: "gcr.io/arcus-jpe-pipe-stage-4f4279cc/gatk-cas:snap1" 
+  }
+
+
+}

@@ -13,13 +13,6 @@ workflow Normalize {
     Int large_disk
   }
 
-  # call Perry.GatherVcfs as gather {
-  #   input:
-  #     input_vcfs = vcf_files,
-  #     output_vcf_name = output_vcf_name + ".vcf.gz",
-  #     disk_size = large_disk
-  # }
-
   call Tasks.DecomposeNormalizeVCF as norm {
     input:
       input_file = vcf_file,
@@ -29,7 +22,14 @@ workflow Normalize {
       disk_size = large_disk,
   }
 
+call Tasks.FinalSelectVar as select {
+    input:
+      input_file = norm.vcf_file,
+      disk_size = large_disk,
+  }
+
   output {
-    File output_vcf = norm.vcf_file
+    File output_vcf = select.vcf_file
+    File output_cas = select.cas_file
   }
 }
