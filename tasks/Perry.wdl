@@ -112,7 +112,7 @@ task FinalSelectVar {
   command {
     set -Eeuxo pipefail;
     gatk --java-options -Xmx5g -Xms5g \
-    SelectVariants -V ~{input_vcf} \
+    SelectVariants -V ~{input_file} \
     --exclude-non-variants \
     --output ~{output_vcf}; \
     /bin/cp-lfs -cas.addr https://cas.arcus.chop.edu -cas.upload -cas.tls.verify=false ~{output_vcf} ~{output_cas}
