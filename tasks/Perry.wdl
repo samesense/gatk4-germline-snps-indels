@@ -111,7 +111,7 @@ task FinalSelectVar {
   }
   command {
     set -Eeuxo pipefail;
-    gatk --java-options -Xmx5g -Xms5g \
+    gatk --java-options -Xms5g \
     SelectVariants -V ~{input_file} \
     --exclude-non-variants \
     --output ~{output_vcf}; \
