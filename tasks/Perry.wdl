@@ -106,8 +106,10 @@ task FinalSelectVar {
     Int cpu = 1
     Int disk_size
 
-    String output_vcf = basename(input_file) + ".vars.vcf"
-    String output_cas = basename(input_file) + ".vars.vcf.cas"
+    String output_vcf = basename(input_file) + ".vars.vcf.gz"
+    String output_vcf_idx = basename(input_file) + ".vars.vcf.gz.tbi"
+    String output_vcf_cas = basename(input_file) + ".vars.vcf.gz.cas"
+    String output_idx_cas = basename(input_file) + ".vars.vcf.gz.tbi.cas"
   }
   command {
     set -Eeuxo pipefail;
@@ -115,13 +117,17 @@ task FinalSelectVar {
     SelectVariants -V ~{input_file} \
     --exclude-non-variants \
     --output ~{output_vcf}; \
-    /bin/cp-lfs -cas.addr https://cas.arcus.chop.edu -cas.upload -cas.tls.verify=false ~{output_vcf} ~{output_cas}
+    /bin/cp-lfs -cas.addr https://cas.arcus.chop.edu -cas.upload -cas.tls.verify=false ~{output_vcf} ~{output_vcf_cas}; \
+    /bin/cp-lfs -cas.addr https://cas.arcus.chop.edu -cas.upload -cas.tls.verify=false ~{output_vcf_idx} ~{output_idx_cas};
+
 
   }
 
   output {
     File vcf_file = "~{output_vcf}"
-    File cas_file = "~{output_cas}"
+    File idx_file = "~{output_vcf_idx}"
+    File vcf_cas_file = "~{output_vcf_cas}"
+    File idx_cas_file = "~{output_idx_cas}"
   }
 
   runtime {

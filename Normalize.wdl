@@ -30,6 +30,9 @@ call Tasks.FinalSelectVar as select {
 
   output {
     File output_vcf = select.vcf_file
-    File output_cas = select.cas_file
+    File output_vcf_cas = select.vcf_cas_file
+    File output_idx = select.idx_file
+    File output_idx_cas = select.idx_cas_file
+
   }
 }
