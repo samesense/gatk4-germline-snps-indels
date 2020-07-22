@@ -195,7 +195,6 @@ workflow JointGenotyping {
 
     # Outputs from the small callset path through the wdl.
     File output_vcf = GatherVcf.output_vcf
-    File output_vcf_pointer = GatherVcf.vcf_cas_file
     File output_vcf_index = GatherVcf.output_vcf_index
   }
 }
