@@ -1,7 +1,7 @@
 version 1.0
 
-import "tasks/Perry.wdl" as Tasks
-#import "https://raw.githubusercontent.com/samesense/gatk4-germline-snps-indels/2.0.0/tasks/Perry.wdl" as Tasks
+#import "tasks/Perry.wdl" as Tasks
+import "https://raw.githubusercontent.com/samesense/gatk4-germline-snps-indels/2.0.0/tasks/Perry.wdl" as Tasks
 
 workflow Normalize {
   String pipeline_version = "1.2"
