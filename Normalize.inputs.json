@@ -3,5 +3,5 @@
   "Normalize.vcf_idx": "",
   "Normalize.reference": "",
   "Normalize.reference_idx": "",
-  "Normalize.large_disk": 1000
+  "Normalize.large_disk": 100
 }
