@@ -772,7 +772,7 @@ File summary_metrics_file = "~{metrics_filename_prefix}.variant_calling_summary_
 
 runtime {
 noAddress: true
-memory: "7.5 GiB"
+memory: "12.5 GiB"
 cpu: 2
 disks: "local-disk " + disk_size + " HDD"
 preemptible: 1
